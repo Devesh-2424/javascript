@@ -2,98 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dropdown Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Date & Time</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
       margin: 0;
       padding: 0;
-    }
-
-    header {
-      background-color: purple;
-      padding: 10px 20px;
-      color: white;
+      background-color: cyan;
+      color: #f2f2f2;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      height: 100vh;
     }
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
+    .datetime-box {
+      background: blue;
+      padding: 30px 60px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: center;
     }
 
-    .dropdown-btn {
-      background-color: skyblue;
-      color: white;
-      padding: 10px 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
+    .datetime-box h2 {
+      font-size: 2rem;
+      margin: 10px 0;
+      letter-spacing: 1px;
     }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: orange;
-      min-width: 160px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-      z-index: 1;
-      border-radius: 4px;
-      margin-top: 5px;
+    .datetime-box p {
+      font-size: 1.5rem;
+      margin: 5px 0;
+      font-weight: bold;
     }
-
-    .dropdown-content a {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #f1f1f1;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    main {
-      padding: 20px;
-    }
-
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>My Web Page</h1>
-    <div class="dropdown">
-      <button class="dropdown-btn">Menu</button>
-      <div class="dropdown-content" id="dropdownMenu">
-        <a href="#" onclick="navigateTo('Home')">Home</a>
-        <a href="#" onclick="navigateTo('About')">About</a>
-        <a href="#" onclick="navigateTo('Contact')">Contact</a>
-        <a href="#" onclick="navigateTo('Server')">Server</a>
-        <a href="#" onclick="navigateTo('Forms')">Forms</a>
-        <a href="#" onclick="navigateTo('Others')">Others</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="content">
-    <h2>Welcome</h2>
-    <p>Select a menu item to see its content here.</p>
-  </main>
+  <div class="datetime-box">
+    <h2>Current Date & Time</h2>
+    <p id="date"></p>
+    <p id="time"></p>
+  </div>
 
   <script>
-    function navigateTo(section) {
-      const content = document.getElementById("content");
-      content.innerHTML = `<h2>${section}</h2><p>This is the ${section} section of the page.</p>`;
+    function updateDateTime() {
+      const now = new Date();
+
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0'); // Months start at 0
+      const year = now.getFullYear();
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      const currentDate = `${day}-${month}-${year}`;
+      const currentTime = `${hours}:${minutes}:${seconds}`;
+
+      document.getElementById('date').textContent = `Date: ${currentDate}`;
+      document.getElementById('time').textContent = `Time: ${currentTime}`;
     }
+
+    // Call every second
+    setInterval(updateDateTime, 1000);
+    updateDateTime(); // Call once on load
   </script>
 
 </body>
