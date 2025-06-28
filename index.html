@@ -1,51 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Task Scheduler</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservation Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    h1 {
+      color: black;
+    }
+
+    fieldset {
+      margin-bottom: 20px;
+      border: 1px solid gray;
+      padding: 15px;
+    }
+
+    legend {
+      color: blue;
+      font-weight: bold;
+    }
+
+    label {
+      display: inline-block;
+      width: 100px;
+      margin-top: 10px;
+    }
+
+    input[type="text"], input[type="email"], select {
+      width: 200px;
+      padding: 5px;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-left: 10px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    input[type="submit"], input[type="button"] {
+      padding: 6px 12px;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Task Scheduler</h1>
-  </div>
 
-  <div class="task-input">
-    <input type="text" id="taskInput" placeholder="Enter task...">
-    <select id="prioritySelect">
-      <option>Top Priority</option>
-      <option>Medium</option>
-      <option>Low</option>
-    </select>
-    <input type="date" id="deadlineInput">
-    <button onclick="addTask()">Add Task</button>
-  </div>
+  <h1>Reservation Request</h1>
 
-  <div class="task-list" id="taskList">
-   <div class="task-container">
-    <div class="task-box">
-      <span class="task-title">DSA Practice</span>
-      <span class="task-priority">Priority: top</span>
-      <span class="task-deadline">Deadline: 2023-08-24</span>
-      <button class="done-btn">Mark Done</button>
+  <form id="reservationForm" onsubmit="return validateForm();">
+    <fieldset>
+      <legend>General Information</legend>
+      <label>Arrival date:</label>
+      <input type="text" id="arrival" placeholder="MM/DD/YYYY"/>
+      <span class="error" id="arrivalError"></span><br/>
+
+      <label>Nights:</label>
+      <input type="text" id="nights"/>
+      <span class="error" id="nightsError"></span><br/>
+
+      <label>Adults:</label>
+      <select id="adults">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select><br/>
+
+      <label>Children:</label>
+      <select id="children">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>Preferences</legend>
+      <label>Room type:</label>
+      <input type="radio" name="room" checked> Standard
+      <input type="radio" name="room"> Business
+      <input type="radio" name="room"> Suite<br/>
+
+      <label>Bed type:</label>
+      <input type="radio" name="bed" checked> King
+      <input type="radio" name="bed"> Double Double<br/>
+
+      <label></label>
+      <input type="checkbox" name="smoking"/> Smoking
+    </fieldset>
+
+    <fieldset>
+      <legend>Contact Information</legend>
+      <label>Name:</label>
+      <input type="text" id="name"/>
+      <span class="error" id="nameError"></span><br/>
+
+      <label>Email:</label>
+      <input type="text" id="email"/>
+      <span class="error" id="emailError"></span><br/>
+
+      <label>Phone:</label>
+      <input type="text" id="phone"/>
+      <span class="error" id="phoneError"></span>
+    </fieldset>
+
+    <div class="buttons">
+      <input type="submit" value="Submit Reservation"/>
+      <input type="button" value="Clear" onclick="document.getElementById('reservationForm').reset(); clearErrors();"/>
     </div>
+  </form>
 
-    <div class="task-box">
-      <span class="task-title">Js Practice</span>
-      <span class="task-priority">Priority: top</span>
-      <span class="task-deadline">Deadline: 2023-09-01</span>
-      <button class="done-btn">Mark Done</button>
-    </div>
+  <script>
+    function validateForm() {
+      let valid = true;
 
-    <div class="task-box">
-      <span class="task-title">Maths Practice</span>
-      <span class="task-priority">Priority: top</span>
-      <span class="task-deadline">Deadline: 2023-08-31</span>
-      <button class="done-btn">Mark Done</button>
-    </div>
-  </div>
-  </div>
+      const arrival = document.getElementById("arrival").value;
+      const nights = document.getElementById("nights").value;
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
 
-  <script src="script.js"></script>
+      clearErrors();
+
+      // Validate arrival date
+      if (!/^\d{2}\/\d{2}\/\d{4}$/.test(arrival) || !isValidDate(arrival)) {
+        document.getElementById("arrivalError").textContent = "Arrival date is invalid.";
+        valid = false;
+      }
+
+      // Validate nights
+      if (isNaN(nights) || nights.trim() === "") {
+        document.getElementById("nightsError").textContent = "Nights must be a number.";
+        valid = false;
+      }
+
+      // Validate name
+      if (name.trim() === "") {
+        document.getElementById("nameError").textContent = "Name is required.";
+        valid = false;
+      }
+
+      // Validate email
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        document.getElementById("emailError").textContent = "Email address is invalid.";
+        valid = false;
+      }
+
+      // Validate phone
+      if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) {
+        document.getElementById("phoneError").textContent = "Phone number is invalid.";
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    function clearErrors() {
+      document.getElementById("arrivalError").textContent = "";
+      document.getElementById("nightsError").textContent = "";
+      document.getElementById("nameError").textContent = "";
+      document.getElementById("emailError").textContent = "";
+      document.getElementById("phoneError").textContent = "";
+    }
+
+    function isValidDate(dateStr) {
+      const parts = dateStr.split("/");
+      const month = parseInt(parts[0], 10);
+      const day = parseInt(parts[1], 10);
+      const year = parseInt(parts[2], 10);
+      const date = new Date(year, month - 1, day);
+      return (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+      );
+    }
+  </script>
+
 </body>
 </html>
