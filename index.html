@@ -2,73 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Live Date & Time</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: cyan;
-      color: #f2f2f2;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .datetime-box {
-      background: blue;
-      padding: 30px 60px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      text-align: center;
-    }
-
-    .datetime-box h2 {
-      font-size: 2rem;
-      margin: 10px 0;
-      letter-spacing: 1px;
-    }
-
-    .datetime-box p {
-      font-size: 1.5rem;
-      margin: 5px 0;
-      font-weight: bold;
-    }
-  </style>
+  <title>Task Scheduler</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div class="datetime-box">
-    <h2>Current Date & Time</h2>
-    <p id="date"></p>
-    <p id="time"></p>
+  <div class="header">
+    <h1>Task Scheduler</h1>
   </div>
 
-  <script>
-    function updateDateTime() {
-      const now = new Date();
+  <div class="task-input">
+    <input type="text" id="taskInput" placeholder="Enter task...">
+    <select id="prioritySelect">
+      <option>Top Priority</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+    <input type="date" id="deadlineInput">
+    <button onclick="addTask()">Add Task</button>
+  </div>
 
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = String(now.getMonth() + 1).padStart(2, '0'); // Months start at 0
-      const year = now.getFullYear();
+  <div class="task-list" id="taskList">
+   <div class="task-container">
+    <div class="task-box">
+      <span class="task-title">DSA Practice</span>
+      <span class="task-priority">Priority: top</span>
+      <span class="task-deadline">Deadline: 2023-08-24</span>
+      <button class="done-btn">Mark Done</button>
+    </div>
 
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
+    <div class="task-box">
+      <span class="task-title">Js Practice</span>
+      <span class="task-priority">Priority: top</span>
+      <span class="task-deadline">Deadline: 2023-09-01</span>
+      <button class="done-btn">Mark Done</button>
+    </div>
 
-      const currentDate = `${day}-${month}-${year}`;
-      const currentTime = `${hours}:${minutes}:${seconds}`;
+    <div class="task-box">
+      <span class="task-title">Maths Practice</span>
+      <span class="task-priority">Priority: top</span>
+      <span class="task-deadline">Deadline: 2023-08-31</span>
+      <button class="done-btn">Mark Done</button>
+    </div>
+  </div>
+  </div>
 
-      document.getElementById('date').textContent = `Date: ${currentDate}`;
-      document.getElementById('time').textContent = `Time: ${currentTime}`;
-    }
-
-    // Call every second
-    setInterval(updateDateTime, 1000);
-    updateDateTime(); // Call once on load
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
