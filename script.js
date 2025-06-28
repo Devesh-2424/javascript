@@ -1,45 +1,28 @@
-function addTask() {
-  const taskInput = document.getElementById("taskInput");
-  const prioritySelect = document.getElementById("prioritySelect");
-  const deadlineInput = document.getElementById("deadlineInput");
-  const taskList = document.getElementById("taskList");
+let timer;
+let seconds = 0;
 
-  const taskText = taskInput.value.trim();
-  const priority = prioritySelect.value;
-  const deadline = deadlineInput.value;
+function updateDisplay() {
+  const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const secs = String(seconds % 60).padStart(2, '0');
+  document.getElementById("display").textContent = `${mins}:${secs}`;
+}
 
-  if (taskText === "" || deadline === "") {
-    alert("Please enter all fields!");
-    return;
+function start() {
+  if (!timer) {
+    timer = setInterval(() => {
+      seconds++;
+      updateDisplay();
+    }, 1000);
   }
-
-  const taskItem = document.createElement("div");
-  taskItem.className = "task-item";
-
-  taskItem.innerHTML = `
-    <span>${taskText}</span>
-    <span>Priority: ${priority.toLowerCase()}</span>
-    <span>Deadline: ${deadline}</span>
-    <button onclick="markDone(this)">Mark Done</button>
-  `;
-
-  taskList.appendChild(taskItem);
-
-  // Clear input fields
-  taskInput.value = "";
-  deadlineInput.value = "";
 }
 
-function markDone(button) {
-  const taskItem = button.parentElement;
-  taskItem.style.textDecoration = "line-through";
-  button.remove();
+function stop() {
+  clearInterval(timer);
+  timer = null;
 }
-// Optional script if you want to mark as done
-document.querySelectorAll('.done-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    button.parentElement.style.textDecoration = 'line-through';
-    button.remove();
-  });
-});
 
+function reset() {
+  stop();
+  seconds = 0;
+  updateDisplay();
+}
