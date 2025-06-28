@@ -1,22 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Stopwatch</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Counter App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: skyblue;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      text-align: center;
+      color: #333;
+    }
+
+    .counter {
+      font-size: 5em;
+      color: #000;
+    }
+
+    .buttons {
+      margin-bottom: 40px;
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .decrement {
+      background-color: green;
+    }
+
+    .reset {
+      background-color: red;
+    }
+
+    .increment {
+      background-color: blue;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>STOPWATCH</h1>
-    <h2>VANILLA JAVASCRIPT STOPWATCH</h2>
-    <div id="display">00:00</div>
-    <div class="buttons">
-      <button onclick="start()">Start</button>
-      <button onclick="stop()">Stop</button>
-      <button onclick="reset()">Reset</button>
-    </div>
+
+  <h1>COUNTER APP</h1>
+
+  <div class="counter" id="counter">0</div>
+
+  <div class="buttons">
+    <button class="decrement" onclick="decrement()">Decrement</button>
+    <button class="reset" onclick="reset()">Reset</button>
+    <button class="increment" onclick="increment()">Increment</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let count = 0;
+    const counterDisplay = document.getElementById('counter');
+
+    function updateDisplay() {
+      counterDisplay.textContent = count;
+    }
+
+    function decrement() {
+      count--;
+      updateDisplay();
+    }
+
+    function reset() {
+      count = 0;
+      updateDisplay();
+    }
+
+    function increment() {
+      count++;
+      updateDisplay();
+    }
+  </script>
+
 </body>
 </html>
