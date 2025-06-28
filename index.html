@@ -1,58 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome To Javascript</title>
-<style>
-    .first{
-        color:blue;
-        padding:10px;
-        background-color: aqua;
-    }
-</style>
-
-<script>
-    function first()
-    {
-        alert("welcome to internal js link");
-        second();
-    }
-    function second()
-    {
-        alert("this is second function");
-        third();
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Date & Time</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: cyan;
+      color: #f2f2f2;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    function third()
-    {
-        alert("this is third function");
+    .datetime-box {
+      background: blue;
+      padding: 30px 60px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: center;
     }
-    
-function one()
-{
-    alert("welcome"); console.log("use of js")
 
-}
+    .datetime-box h2 {
+      font-size: 2rem;
+      margin: 10px 0;
+      letter-spacing: 1px;
+    }
 
-
-</script>
-
-
-
+    .datetime-box p {
+      font-size: 1.5rem;
+      margin: 5px 0;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-<h1 style="color:red">this is inline</h1>  
-<h2 onclick="this.style.color='red'" onmouseout="this.style.backgroundColor='blue'" onmouseover="this.style.backgroundColor='orange'">this is inline js</h2>
-    
-<!-- <h3 class="first second third" onclick="first(),second(),third()">this is internal css</h3> -->
- <h3 class="first second third" onclick="first()">this is internal css</h3>
+  <div class="datetime-box">
+    <h2>Current Date & Time</h2>
+    <p id="date"></p>
+    <p id="time"></p>
+  </div>
 
-<input type="button" value="submit" onclick="one()">
+  <script>
+    function updateDateTime() {
+      const now = new Date();
 
-<input type="button" value="externaljslink" onclick="two()">
-<script src="script.js"></script>
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, '0'); // Months start at 0
+      const year = now.getFullYear();
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      const currentDate = `${day}-${month}-${year}`;
+      const currentTime = `${hours}:${minutes}:${seconds}`;
+
+      document.getElementById('date').textContent = `Date: ${currentDate}`;
+      document.getElementById('time').textContent = `Time: ${currentTime}`;
+    }
+
+    // Call every second
+    setInterval(updateDateTime, 1000);
+    updateDateTime(); // Call once on load
+  </script>
 
 </body>
 </html>
