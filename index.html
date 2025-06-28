@@ -1,102 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Counter App</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: skyblue;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    h1 {
-      margin-top: 40px;
-      font-size: 3em;
-      text-align: center;
-      color: #333;
-    }
-
-    .counter {
-      font-size: 5em;
-      color: #000;
-    }
-
-    .buttons {
-      margin-bottom: 40px;
-      display: flex;
-      gap: 20px;
-    }
-
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .decrement {
-      background-color: green;
-    }
-
-    .reset {
-      background-color: red;
-    }
-
-    .increment {
-      background-color: blue;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Register Form</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <form id="form">
+      <h2>Register With Us</h2>
 
-  <h1>COUNTER APP</h1>
+      <div class="form-control">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Enter username" />
+        <small>Error message</small>
+      </div>
 
-  <div class="counter" id="counter">0</div>
+      <div class="form-control">
+        <label>Email</label>
+        <input type="text" id="email" placeholder="Enter email" />
+        <small>Error message</small>
+      </div>
 
-  <div class="buttons">
-    <button class="decrement" onclick="decrement()">Decrement</button>
-    <button class="reset" onclick="reset()">Reset</button>
-    <button class="increment" onclick="increment()">Increment</button>
+      <div class="form-control">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password" />
+        <small>Error message</small>
+      </div>
+
+      <div class="form-control">
+        <label>Confirm Password</label>
+        <input type="password" id="password2" placeholder="Enter password again" />
+        <small>Error message</small>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
   </div>
 
-  <script>
-    let count = 0;
-    const counterDisplay = document.getElementById('counter');
-
-    function updateDisplay() {
-      counterDisplay.textContent = count;
-    }
-
-    function decrement() {
-      count--;
-      updateDisplay();
-    }
-
-    function reset() {
-      count = 0;
-      updateDisplay();
-    }
-
-    function increment() {
-      count++;
-      updateDisplay();
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
