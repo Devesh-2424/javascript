@@ -1,63 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard UI</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Employee Daily Work Count</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: aqua;
+    }
+    #workList {
+      margin-top: 15px;
+    }
+    .work-item {
+      background: #f1f1f1;
+      padding: 10px;
+      margin: 5px 0;
+      border-left: 4px solid #007bff;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <h2>DASHBOARD</h2>
-      <nav>
-        <ul>
-          <li class="active"><i class="icon">🏠</i> Dashboard</li>
-          <li><i class="icon">📊</i> Charts</li>
-          <li><i class="icon">📈</i> Statistic</li>
-          <li><i class="icon">🗓️</i> Calendar</li>
-          <li><i class="icon">📁</i> Sample Pages</li>
-          <li><i class="icon">✉️</i> Messages</li>
-          <li><i class="icon">⚙️</i> Settings</li>
-          <li><i class="icon">❓</i> Support</li>
-        </ul>
-      </nav>
-    </aside>
+  <h2>Employee Work Summary</h2>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <header class="header">
-        <input type="text" placeholder="Search..." />
-        <div class="header-icons">
-          <span>📬</span>
-          <span>🔔</span>
-          <span>⚙️</span>
-          <div class="user">👤 John Smith</div>
-        </div>
-      </header>
+  <label for="empId">Enter Employee ID:</label>
+  <input type="text" id="empId" placeholder="e.g., EMP101" />
+  <button onclick="getEmployeeWork()">Get Work</button>
 
-      <!-- Top Cards -->
-      <section class="top-cards">
-        <div class="card yellow">98.5% <small>Conversion</small></div>
-        <div class="card blue">2,481 <small>Approved User</small></div>
-        <div class="card green">31,124 <small>SEO Score</small></div>
-        <div class="card pink">$2,125 <small>Revenue</small></div>
-      </section>
+  <h3 id="totalCount">Total Tasks:11</h3>
+  <div id="workList"></div>
 
-      <!-- Chart Grid -->
-      <section class="grid">
-        <div class="widget">📊 DoLOR</div>
-        <div class="widget">📉 MINI</div>
-        <div class="widget">🧾 LOREM</div>
-        <div class="widget">📈 VELIT</div>
-        <div class="widget">💰 IRIURE</div>
-        <div class="widget">📊 VELIT</div>
-        <div class="widget">📈 MAGNA</div>
-        <div class="widget">📉 IPSUM</div>
-      </section>
-    </main>
-  </div>
+  <script>
+    // Simulated API response (replace this with a real fetch() call)
+    const mockAPIResponse = {
+      "EMP101": [
+        { date: "2025-07-01", task: "Completed frontend module" },
+        { date: "2025-07-02", task: "Fixed bugs in API" },
+        { date: "2025-07-03", task: "Team meeting & code review" }
+      ],
+      "EMP102": [
+        { date: "2025-07-01", task: "Backend testing" },
+        { date: "2025-07-02", task: "API documentation" }
+      ],
+      "EMP103": [
+        {date: "2025-07-03", task: "Unit Testing"},
+        {date: "2025-07-03", task: "Regression Testing"}
+      ],
+      "EMP104": [
+        {date: "2025-07-04", task: "Mern Stack Development"},
+        {date: "2025-07-04", tsk: "Mean Stack Development"}
+      ],
+      "EMP105":[
+        {date: "2025-07-05", task: "Mobile App Development"},
+        {date: "2025-07-05", task: "IOS App Development"}
+      ]
+    };
+
+    function getEmployeeWork() {
+      const empId = document.getElementById('empId').value.trim().toUpperCase();
+      const workListDiv = document.getElementById('workList');
+      const totalCountEl = document.getElementById('totalCount');
+      
+      workListDiv.innerHTML = ''; // Clear old data
+      totalCountEl.textContent = 'Total Tasks: 0';
+
+      if (!empId) {
+        alert("Please enter an Employee ID");
+        return;
+      }
+
+      // Simulate API fetch
+      const employeeData = mockAPIResponse[empId];
+
+      if (!employeeData) {
+        workListDiv.innerHTML = `<p>No data found for Employee ID: ${empId}</p>`;
+        return;
+      }
+
+      // Update total count
+      totalCountEl.textContent = `Total Tasks: ${employeeData.length}`;
+
+      // Render each work item
+      employeeData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'work-item';
+        div.innerHTML = `<strong>${item.date}:</strong> ${item.task}`;
+        workListDiv.appendChild(div);
+      });
+    }
+  </script>
 </body>
 </html>
+
