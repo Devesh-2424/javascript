@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OTP Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Domain Name Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: skyblue;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+    #domain {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>OTP Generator</h1>
-    <button onclick="generateOTP()">Generate OTP</button>
-    <div class="otp-box" id="otp-box">------</div>
-  </div>
+  <h1>Domain Name Generator</h1>
+  <button onclick="generateDomain()">Generate Domain</button>
+  <div id="domain"></div>
+
+  <script>
+    const prefixes = ["web", "tech", "dev", "cool", "fast", "super", "the"];
+    const names = ["cloud", "hub", "code", "net", "byte", "data", "site"];
+    const extensions = [".com", ".net", ".org", ".io", ".dev"];
+
+    function generateDomain() {
+      const pre = prefixes[Math.floor(Math.random() * prefixes.length)];
+      const name = names[Math.floor(Math.random() * names.length)];
+      const ext = extensions[Math.floor(Math.random() * extensions.length)];
+      const domain = pre + name + ext;
+      document.getElementById("domain").innerText = domain;
+    }
+  </script>
 </body>
-<script src="script.js"></script>
 </html>
